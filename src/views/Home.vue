@@ -1,18 +1,36 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <el-container>
+    <base-header :activeIndex="activeIndex"></base-header>
+    <el-main style="margin-top: 53px">
+      <router-view/>
+    </el-main>
+  </el-container>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+  import BaseHeader from "@/components/base/BaseHeader.vue";
 
-export default {
-  name: 'home',
-  components: {
-    HelloWorld
+  export default {
+    name: 'home',
+    components: {
+      BaseHeader
+    },
+    data() {
+      return {
+        activeIndex: "/"
+      }
+    },
+    beforeRouteEnter(to, from, next) {
+      next(vm => {
+        vm.activeIndex = to.path
+      })
+    },
+    beforeRouteUpdate(to, from, next) {
+      this.activeIndex = to.path;
+      next();
+    }
+
   }
-}
 </script>
+<style scoped>
+</style>
