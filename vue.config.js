@@ -6,9 +6,22 @@ function resolve(dir) {
 
 
 module.exports = {
+  publicPath: '/',
+  outputDir: "dist",
+  productionSourceMap: false,
   devServer: {
     historyApiFallback: true,
-    port: 8080
+    host: "127.0.0.1",
+    port: 8080,
+    proxy: {
+      "/api": {
+        target: "http://10.1.88.151:8081",
+        changeOrigin: true,
+        pathRewrite: {
+          "^/api": "/api"
+        }
+      }
+    }
   },
   configureWebpack: {
     name: projectName,
