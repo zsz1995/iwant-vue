@@ -54,7 +54,7 @@
         this.$refs[form].validate((valid) => {
           if (valid) {
             that.$store.dispatch("login", that.loginData).then(() => {
-              console.log(that.$store.state)
+              that.$message({message: "登录成功", type: "success"})
             }).catch(err => {
               if (err !== "error") {
                 that.$message({message: err, type: "error", showClose: true})

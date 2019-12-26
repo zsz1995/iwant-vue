@@ -20,7 +20,15 @@
             </el-button-group>
           </template>
           <template v-else>
-            <el-avatar icon="icon-user"></el-avatar>
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                <el-avatar style="vertical-align: middle;" icon="icon-user"></el-avatar>
+              </span>
+              <el-dropdown-menu slot="dropdown">
+                <el-dropdown-item icon="icon-pic-left" @click="editInfo">个人信息</el-dropdown-item>
+                <el-dropdown-item icon="icon-logout" @click="doLogout" divided>退出登录</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
         </span>
       </el-menu>
@@ -57,13 +65,22 @@
     },
     data() {
       return {
-        login_drawer: this.$store.state.id.length !== 0,
+        login_drawer: false,
         register_drawer: false
       }
     },
     computed: {
       user() {
+        let that = this;
         let login = this.$store.state.id.length !== 0;
+        if (that.login_drawer && login) {
+          that.login_drawer = false;
+        }
+
+        if (that.login_drawer && login) {
+          that.login_drawer = false;
+        }
+
         let avatar = this.$store.state.avatar;
         return {
           login,
@@ -77,6 +94,19 @@
       },
       registerCloseHandler() {
         this.$refs["register"].resetForm("registerForm");
+      },
+      editInfo() {
+
+      },
+      doLogout() {
+        let that = this;
+        that.$store.dispatch("frontLogout").then(() => {
+          that.$router.push({path: "/"})
+        }).catch((error) => {
+          if (error !== 'error') {
+            that.$message({message: error, type: 'error', showClose: true});
+          }
+        })
       }
     }
   }
