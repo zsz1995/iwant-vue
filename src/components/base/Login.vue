@@ -1,11 +1,20 @@
 <template>
   <div>
-    <el-form :model="loginData" :rules="rules" ref="loginForm" class="iw-drawform">
+    <el-form
+    :model="loginData"
+    :rules="rules"
+    ref="loginForm"
+    class="iw-drawform"
+    v-loading.fullscreen.lock="loading"
+    element-loading-text="正在登录..."
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+    >
       <el-form-item label="用户名" required prop="username">
-        <el-input v-model="loginData.username" autocomplete="off"></el-input>
+        <el-input prefix-icon="icon-user" v-model="loginData.username" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password" required>
-        <el-input v-model="loginData.password" type="password" autocomplete="off"></el-input>
+        <el-input prefix-icon="el-icon-key" v-model="loginData.password" type="password" autocomplete="off"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="medium" type="primary" @click="doLogin('loginForm')">登录</el-button>
@@ -16,6 +25,8 @@
 </template>
 
 <script>
+  import {login} from "@/api/login";
+
   export default {
     data() {
       let validateUsername = (rule, value, callback) => {
@@ -34,9 +45,10 @@
         }
       };
       return {
+        loading: false,
         loginData: {
           username: "",
-          password: ""
+          password: "",
         },
         rules: {
           username: [
@@ -51,13 +63,14 @@
     methods: {
       doLogin(form) {
         let that = this;
-        this.$refs[form].validate((valid) => {
+        that.loading = true;
+        that.$refs[form].validate((valid) => {
           if (valid) {
-            that.$store.dispatch("login", that.loginData).then(() => {
-              that.$message({message: "登录成功", type: "success"})
-            }).catch(err => {
-              if (err !== "error") {
-                that.$message({message: err, type: "error", showClose: true})
+            debugger
+            login(that.loginData.username, that.$md5(that.loginData.password)).then(res => {
+              that.loading = false;
+              if (res.success) {
+                that.$message.success("登录成功")
               }
             })
           } else {

@@ -10,32 +10,31 @@ const service = axios.create({
 // request 拦截器
 service.interceptors.request.use(
 config => {
-  console.log(process.env.BASE_URL)
   return config
 },
 error => {
-  Promise.reject(error)
+  Message.error("请求超时");
+  return Promise.resolve(error)
 });
 
 service.interceptors.response.use(
 response => {
-  // 全局统一处理 session
-  if (response.headers["session_time_out"] === "timeout") {
-    console.log("timeout");
-    return Promise.reject("error")
-  }
   const res = response.data;
-  if (res.errorCode !== 0) {
+  if (response.status && response.status === 200 && res.errorCode !== 0) {
     Message.error(res.errorMsg);
-    return Promise.reject("error")
-  }else {
-    return res.data;
+    return res
   }
-  
+  return res
 },
 error => {
-  Message.error("连接超时");
-  return Promise.reject(error)
+  if (error.response.status === 504 || error.response.status === 404) {
+    Message.error({message: '服务器被吃了⊙﹏⊙∥'});
+  } else if (error.response.status === 403) {
+    Message.error({message: '权限不足,请联系管理员!'});
+  } else {
+    Message.error({message: '未知错误!'});
+  }
+  return Promise.resolve(error);
 }
 );
 
