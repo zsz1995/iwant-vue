@@ -6,10 +6,12 @@ import ElementUI from "element-ui"
 import layer from "vue-layer"
 import md5 from "js-md5"
 import "@/assets"
+import request from "@/request"
 
 Vue.use(ElementUI);
 Vue.prototype.$layer = layer(Vue);
 Vue.prototype.$md5 = md5;
+Vue.prototype.$request = request;
 Vue.config.productionTip = false;
 
 new Vue({

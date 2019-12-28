@@ -11,20 +11,25 @@ const routes = [
     children: [
       {
         path: "/",
-        component: () =>
-        import("@/views/Index.vue")
+        component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
       },
       {
-        path: "/notice",
-        component: () =>
-        import("@/views/Notice.vue")
+        path: "/meeting",
+        component: r => require.ensure([], () => r(require('@/views/AllMeeting')), 'AllMeeting')
+      },
+      {
+        path: "/eidtUser",
+        component: r => require.ensure([], () => r(require('@/views/user/UserEdit')), 'UserEdit')
       }
     ]
   }
 ];
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 });
+
+
 
 export default router

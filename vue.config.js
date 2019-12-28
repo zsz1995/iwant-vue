@@ -14,11 +14,11 @@ module.exports = {
     host: "127.0.0.1",
     port: 8080,
     proxy: {
-      "/api": {
+      "/": {
         target: "http://10.1.88.151:8081",
         changeOrigin: true,
         pathRewrite: {
-          "^/api": "/api"
+          "^/": "/"
         }
       }
     }

@@ -66,11 +66,12 @@
         that.loading = true;
         that.$refs[form].validate((valid) => {
           if (valid) {
-            debugger
             login(that.loginData.username, that.$md5(that.loginData.password)).then(res => {
               that.loading = false;
               if (res.success) {
-                that.$message.success("登录成功")
+                that.$message.success("登录成功");
+                that.$store.commit("SET_USER", res.data);
+                window.sessionStorage.setItem("user", JSON.stringify(res.data))
               }
             })
           } else {

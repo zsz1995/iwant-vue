@@ -2,7 +2,7 @@
   <div class="iw-container">
     <el-row>
       <el-col :span="12" style="margin-top: 300px">
-          <el-button @click="handup">报名 </el-button>
+        <el-button @click="handup">报名 </el-button>
       </el-col>
       <el-col :span="12" >
         <el-image :src="src_teamwork" style="height: 400px;width: 400px; margin-top: 100px;"></el-image>
