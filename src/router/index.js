@@ -1,35 +1,35 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import router from "./router"
+import NProgress from "nprogress"
+import 'nprogress/nprogress.css'// progress bar style
+import config from "@/settings"
+import {getToken} from "@/utils/auth";
 
-Vue.use(VueRouter);
+const whiteList = ["/login", "/", "/register", "/meetings", "/latest"];
 
-const routes = [
-  {
-    path: '',
-    component: Home,
-    children: [
-      {
-        path: "/",
-        component: r => require.ensure([], () => r(require('@/views/Index')), 'index')
-      },
-      {
-        path: "/meeting",
-        component: r => require.ensure([], () => r(require('@/views/AllMeeting')), 'AllMeeting')
-      },
-      {
-        path: "/eidtUser",
-        component: r => require.ensure([], () => r(require('@/views/user/UserEdit')), 'UserEdit')
-      }
-    ]
+router.beforeEach((to, from, next) => {
+  if (to.meta.title) {
+    document.title = to.meta.title + " | " + config.title
   }
-];
-
-const router = new VueRouter({
-  mode: 'history',
-  routes
+  NProgress.start();
+  const token = getToken();
+  if (token && "undefined" !== token) {
+    if (to.path === "/login") {
+      next({path: "/"});
+      NProgress.done()
+    } else {
+      next()
+    }
+  } else {
+    if (whiteList.indexOf(to.path) !== -1) {
+      next()
+    } else {
+      next("/login");
+      NProgress.done()
+    }
+  }
+  
 });
 
-
-
-export default router
+router.afterEach(() => {
+  NProgress.done() // finish progress bar
+});

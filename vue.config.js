@@ -15,7 +15,7 @@ module.exports = {
     port: 8080,
     proxy: {
       "/": {
-        target: "http://10.1.88.151:8081",
+        target: "http://127.0.0.1:8081",
         changeOrigin: true,
         pathRewrite: {
           "^/": "/"
@@ -28,7 +28,6 @@ module.exports = {
     resolve: {
       alias: {
         "@": resolve("src"),
-        // 添加本配置, 成功使用vue-layer
         "vue$": "vue/dist/vue.js"
       }
     }

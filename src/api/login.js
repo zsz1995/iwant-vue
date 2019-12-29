@@ -1,9 +1,27 @@
-import request from "@/request"
+import request from "@/utils/request"
 
 export function login(username, password) {
   return request({
-    url: "/login?username=" + username + "&password=" + password,
-    method: "post"
+    url: "auth/login",
+    method: "post",
+    data: {
+      username,
+      password
+    }
+  })
+}
+
+export function getInfo() {
+  return request({
+    url: "auth/info",
+    method: "get"
+  })
+}
+
+export function logout() {
+  return request({
+    url: "auth/logout",
+    method: "get"
   })
 }
 
@@ -13,7 +31,7 @@ export function register(username, password) {
     password
   };
   return request({
-    url: "/register",
+    url: "/auth/register",
     method: "post",
     data
   })

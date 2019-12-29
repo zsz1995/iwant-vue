@@ -1,6 +1,6 @@
 <template>
   <div>
-    notice
+    404
   </div>
 </template>
 

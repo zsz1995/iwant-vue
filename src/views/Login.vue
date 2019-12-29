@@ -1,45 +1,154 @@
 <template>
-  <div class="iw-container">
-    <el-row>
-      <el-col :span="12" style="margin-top: 300px">
-        <el-button @click="handup">报名 </el-button>
+  <el-row>
+    <div style="width: 980px;height: auto;margin: 100px auto;">
+      <el-col :offset="2" :span="8">
+        <el-image :src="src_teamwork" style="height: 400px;width: 400px; "></el-image>
       </el-col>
-      <el-col :span="12" >
-        <el-image :src="src_teamwork" style="height: 400px;width: 400px; margin-top: 100px;"></el-image>
+      <el-col :offset="4" :span="8" style="">
+        <el-form
+        :model="loginData"
+        :rules="rules"
+        ref="loginForm"
+        class="iw-drawform"
+        >
+          <el-form-item label="账号登录" prop="username">
+            <el-button type="text" class="pull-right" @click="loginByMsgHandler">
+              >>>手机动态码登录
+              <i class="el-icon-mobile-phone"></i>
+            </el-button>
+            <el-input
+            prefix-icon="icon-user"
+            v-model="loginData.username"
+            autocomplete="off"
+            placeholder="用户名"
+            ></el-input>
+          </el-form-item>
+          <el-form-item prop="password" required>
+            <el-input
+            prefix-icon="el-icon-key"
+            v-model="loginData.password"
+            type="password"
+            autocomplete="off"
+            placeholder="密码"
+            ></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button
+            :loading="loading"
+            size="medium"
+            type="primary"
+            @click="doLogin('loginForm')">
+              <span v-if="!loading">登 录</span>
+              <span v-else>登 录 中...</span>
+            </el-button>
+            <el-button size="medium" @click="resetForm('loginForm')">重置</el-button>
+          </el-form-item>
+          <el-form-item>
+            <span class="iw-label">还没有账号？
+            <router-link to="/register">
+              <el-button type="text">
+              点此注册
+              <i class="icon-adduser"></i>
+            </el-button>
+            </router-link>
+            </span>
+          </el-form-item>
+        </el-form>
       </el-col>
-    </el-row>
-  </div>
+    </div>
+  </el-row>
 </template>
 
 <script>
+  import cookie from "js-cookie"
+
   export default {
     data() {
+      let validateUsername = (rule, value, callback) => {
+        if (value === "") {
+          callback(new Error("请输入用户名"))
+        } else {
+          callback()
+        }
+      };
+
+      let validatePassword = (rule, value, callback) => {
+        if (value === "") {
+          callback(new Error("请输入密码"))
+        } else {
+          callback()
+        }
+      };
       return {
-        src_teamwork: require("@/static/img/header-teamwork.svg")
+        src_teamwork: require("@/static/img/login.svg"),
+        loading: false,
+        loginData: {
+          username: "",
+          password: "",
+        },
+        rules: {
+          username: [
+            {validator: validateUsername, trigger: "blur"}
+          ],
+          password: [
+            {validator: validatePassword, trigger: "blur"}
+          ]
+        }
       }
     },
     methods: {
-      handup() {
-        this.$request({
-          url: "/currentuser",
-          method: "get",
-        }).then(res => {
-          console.log(res)
+      loginByMsgHandler() {
+        this.$message.info("功能待开发")
+      },
+      doLogin(form) {
+        let that = this;
+        const user = {
+          username: this.loginData.username,
+          password: this.$md5(this.loginData.password)
+        };
+        that.$refs[form].validate((valid) => {
+          if (valid) {
+            that.loading = true;
+            that.$store.dispatch("Login", user).then((res) => {
+              if (res.success) {
+                that.$router.push({path: this.redirect || "/"});
+                that.loading = false;
+              }
+            }).catch(() => {
+              that.loading = false
+            })
+          } else {
+            console.log("error submit");
+            return false
+          }
         })
+      },
+      resetForm(form) {
+        this.$refs[form].resetFields()
+      },
+      getCookie() {
+        const username = cookie.get("username");
+        this.loginData.username = undefined ? this.loginData.username : username;
       }
     }
   }
 </script>
 
 <style scoped>
-  .iw-container {
-    margin-top: -80px;
-    margin-right: -20px;
-    height: 100%;
-    width: 100%;
-    overflow: no-display;
-    background: url('../static/img/header-background.jpg') center center no-repeat;
-    background-size: cover;
+  .iw-drawform {
+    margin: 20px 30px;
   }
 
+  .iw-label {
+    text-align: right;
+    vertical-align: middle;
+    float: left;
+    font-size: 14px;
+    color: #606266;
+    line-height: 40px;
+    padding: 0 12px 0 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
 </style>
+
