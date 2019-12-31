@@ -1,13 +1,11 @@
 <template>
   <div>
-    <el-header
-    class="iw-header"
-    >
       <el-menu
       :router="true"
       :default-active="activeIndex"
       menu-trigger="click"
       mode="horizontal"
+      class="iw-header"
       >
         <router-link to="/">
           <el-image class="logo" :src="iwant">
@@ -45,7 +43,6 @@
           </template>
         </span>
       </el-menu>
-    </el-header>
   </div>
 </template>
 
@@ -116,7 +113,7 @@
 
 <style scoped>
   .iw-header {
-    margin-bottom: 60px;
+    height: 60px;
     padding: 0 0;
     position: fixed;
     left: 0;

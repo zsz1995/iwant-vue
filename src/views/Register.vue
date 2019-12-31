@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <el-row type="flex" align="middle" justify="center" style="height: 100%">
     <el-row>
       <router-link to="/">
         <el-image :src="iwant" class="logo"/>
@@ -50,8 +50,8 @@
         </el-col>
       </div>
     </el-row>
+  </el-row>
 
-  </div>
 </template>
 
 <script>

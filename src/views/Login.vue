@@ -1,52 +1,53 @@
 <template>
-  <el-row>
-    <router-link to="/">
-      <el-image :src="iwant" class="logo"/>
-    </router-link>
-    <div style="width: 980px;height: auto;margin: 100px auto;">
-      <el-col :offset="2" :span="8">
-        <el-image :src="src_teamwork" style="height: 400px;width: 400px; "/>
-      </el-col>
-      <el-col :offset="4" :span="8" style="">
-        <el-form
-        :model="loginData"
-        :rules="rules"
-        ref="loginForm"
-        class="iw-drawform"
-        >
-          <el-form-item label="账号登录" prop="username">
-            <el-button type="text" class="pull-right" @click="loginByMsgHandler">
-              >>>手机动态码登录
-              <i class="el-icon-mobile-phone"></i>
-            </el-button>
-            <el-input
-            prefix-icon="icon-user"
-            v-model="loginData.username"
-            autocomplete="off"
-            placeholder="用户名"
-            ></el-input>
-          </el-form-item>
-          <el-form-item prop="password" required>
-            <el-input
-            prefix-icon="el-icon-key"
-            v-model="loginData.password"
-            type="password"
-            autocomplete="off"
-            placeholder="密码"
-            ></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button
-            :loading="loading"
-            size="medium"
-            type="primary"
-            @click="doLogin('loginForm')">
-              <span v-if="!loading">登 录</span>
-              <span v-else>登 录 中...</span>
-            </el-button>
-            <el-button size="medium" @click="resetForm('loginForm')">重置</el-button>
-          </el-form-item>
-          <el-form-item>
+  <el-row type="flex" align="middle" justify="center" style="height: 100%">
+    <el-row>
+      <router-link to="/">
+        <el-image :src="iwant" class="logo"/>
+      </router-link>
+      <div style="width: 980px;height: auto;margin: 100px auto;">
+        <el-col :offset="2" :span="8">
+          <el-image :src="src_teamwork" style="height: 400px;width: 400px; "/>
+        </el-col>
+        <el-col :offset="4" :span="8" style="">
+          <el-form
+                  :model="loginData"
+                  :rules="rules"
+                  ref="loginForm"
+                  class="iw-drawform"
+          >
+            <el-form-item label="账号登录" prop="username">
+              <el-button type="text" class="pull-right" @click="loginByMsgHandler">
+                >>>手机动态码登录
+                <i class="el-icon-mobile-phone"/>
+              </el-button>
+              <el-input
+              prefix-icon="icon-user"
+              v-model="loginData.username"
+              autocomplete="off"
+              placeholder="用户名"
+              />
+            </el-form-item>
+            <el-form-item prop="password" required>
+              <el-input
+              prefix-icon="el-icon-key"
+              v-model="loginData.password"
+              type="password"
+              autocomplete="off"
+              placeholder="密码"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button
+                      :loading="loading"
+                      size="medium"
+                      type="primary"
+                      @click="doLogin('loginForm')">
+                <span v-if="!loading">登 录</span>
+                <span v-else>登 录 中...</span>
+              </el-button>
+              <el-button size="medium" @click="resetForm('loginForm')">重置</el-button>
+            </el-form-item>
+            <el-form-item>
             <span class="iw-label">还没有账号？
             <router-link to="/register">
               <el-button type="text">
@@ -55,11 +56,14 @@
             </el-button>
             </router-link>
             </span>
-          </el-form-item>
-        </el-form>
-      </el-col>
-    </div>
+            </el-form-item>
+          </el-form>
+        </el-col>
+      </div>
+    </el-row>
   </el-row>
+
+
 </template>
 
 <script>

@@ -6,7 +6,7 @@ function resolve(dir) {
 
 
 module.exports = {
-  publicPath: '/',
+  publicPath: './',
   outputDir: "dist",
   productionSourceMap: false,
   devServer: {

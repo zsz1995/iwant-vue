@@ -46,7 +46,39 @@ span .me-pull-right {
 
 .me-container {
     padding: 20px;
+    height: 100%;
 }
+
+#app {
+}
+
+.banner3 {
+    background-image: url("../../static/img/banner3.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.banner1 {
+    background-image: url("../../static/img/banner1.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.banner2 {
+    background-image: url("../../static/img/banner2.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.banner4 {
+    background-image: url("../../static/img/banner4.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+
+
+
 .logo {
     height: 60px;
     float: left;

@@ -1,6 +1,6 @@
 <template>
-  <div class="me-container meeting">
-    <div v-if="loading">
+  <el-row class="me-container meeting banner1" type="flex" align="middle" justify="center">
+    <el-col :span="20" v-if="loading">
       <!--最新会议-->
       <el-row type="flex" justify="center">
         <el-col :span="12" class="me-meeting" style="text-align: center">
@@ -10,7 +10,7 @@
         </el-col>
       </el-row>
       <el-row>
-        <el-col :span="10">
+        <el-col offset="4" :span="10">
             <span class="content">
               {{ meeting.content }}
             </span>
@@ -36,16 +36,19 @@
               </span>
             </el-form-item>
             <el-form-item>
-              <el-button type="primary" @click="signHandler" icon="icon-flag">
-                现在报名
-              </el-button>
+              {{ JSON.stringify(meeting) }}
             </el-form-item>
           </el-form>
-
-
         </el-col>
       </el-row>
-    </div>
+      <el-row justify="center" type="flex">
+        <el-col :span="1">
+          <el-button type="primary" @click="signHandler" icon="icon-flag">
+            现在报名
+          </el-button>
+        </el-col>
+      </el-row>
+    </el-col>
     <div v-else>
       <el-row type="flex" justify="center">
         <el-col :span="12" class="me-meeting" style="text-align: center;">
@@ -55,7 +58,7 @@
         </el-col>
       </el-row>
     </div>
-  </div>
+  </el-row>
 </template>
 
 <script>
