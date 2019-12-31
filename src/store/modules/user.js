@@ -28,7 +28,7 @@ const user = {
     Login({commit}, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo.username, userInfo.password).then(res => {
-          if(res.success) {
+          if (res.success) {
             const data = res.data;
             setToken(data.token);
             commit('SET_TOKEN', data.token);
@@ -42,7 +42,7 @@ const user = {
         })
       })
     },
-  
+    
     // 获取用户信息
     GetInfo({commit}) {
       return new Promise((resolve, reject) => {
@@ -71,17 +71,22 @@ const user = {
 
 export const setUserInfo = (res, commit) => {
   // 如果没有任何权限，则赋予一个默认的权限，避免请求死循环
-  if (res.roles && res.roles.length === 0) {
-    commit('SET_ROLES', ['ROLE_SYSTEM_DEFAULT'])
-  } else {
-    commit('SET_ROLES', res.roles)
+  if (res.success) {
+    if (res.roles && res.roles.length === 0) {
+      commit('SET_ROLES', ['ROLE_SYSTEM_DEFAULT'])
+    } else {
+      commit('SET_ROLES', res.roles);
+      
+    }
+    commit('SET_AVATAR', res.data.avatarUrl || "");
+    commit('SET_USER', res.data || {})
   }
-  commit('SET_USER', res.account)
 };
 
 export const logOut = (commit) => {
   commit('SET_TOKEN', '');
   commit('SET_ROLES', []);
+  commit('SET_AVATAR', '');
   removeToken()
 };
 

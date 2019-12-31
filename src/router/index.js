@@ -3,6 +3,7 @@ import NProgress from "nprogress"
 import 'nprogress/nprogress.css'// progress bar style
 import config from "@/settings"
 import {getToken} from "@/utils/auth";
+import store from "@/store"
 
 const whiteList = ["/login", "/", "/register", "/meetings", "/latest"];
 
@@ -17,6 +18,12 @@ router.beforeEach((to, from, next) => {
       next({path: "/"});
       NProgress.done()
     } else {
+      if (store.getters.avatar.length === 0) {
+        store.dispatch("GetInfo").then(() => {
+        }).catch(error => {
+          console.log(error);
+        })
+      }
       next()
     }
   } else {

@@ -3,7 +3,7 @@ module.exports = {
   /**
    * @description 网站标题
    */
-  title: 'iwant',
+  title: '报名吧',
   /**
    * @description 是否显示 tagsView
    */

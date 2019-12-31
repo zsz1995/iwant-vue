@@ -1,8 +1,11 @@
 <template>
   <el-row>
+    <router-link to="/">
+      <el-image :src="iwant" class="logo"/>
+    </router-link>
     <div style="width: 980px;height: auto;margin: 100px auto;">
       <el-col :offset="2" :span="8">
-        <el-image :src="src_teamwork" style="height: 400px;width: 400px; "></el-image>
+        <el-image :src="src_teamwork" style="height: 400px;width: 400px; "/>
       </el-col>
       <el-col :offset="4" :span="8" style="">
         <el-form
@@ -81,6 +84,7 @@
       };
       return {
         src_teamwork: require("@/static/img/login.svg"),
+        iwant: require("@/static/img/iwant.png"),
         loading: false,
         loginData: {
           username: "",
@@ -111,8 +115,8 @@
             that.loading = true;
             that.$store.dispatch("Login", user).then((res) => {
               if (res.success) {
-                that.$router.push({path: this.redirect || "/"});
                 that.loading = false;
+                that.$router.push({path: "/"});
               }
             }).catch(() => {
               that.loading = false

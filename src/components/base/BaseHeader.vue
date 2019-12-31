@@ -9,28 +9,32 @@
       menu-trigger="click"
       mode="horizontal"
       >
+        <router-link to="/">
+          <el-image class="logo" :src="iwant">
+          </el-image>
+        </router-link>
         <el-menu-item index="/latest" style="margin-left: 30px">最新</el-menu-item>
         <el-menu-item index="/meetings">全部活动</el-menu-item>
         <span class="pull-right" style="height: 60px;line-height: 60px;margin: 0 20px;">
           <template v-if="!user.isLogin">
             <router-link to="/login" class="margin-right-5">
-              <el-button  type="text" icon="icon-login" size="medium">登录</el-button>
+              <el-button type="text" icon="icon-login" size="medium">登录</el-button>
             </router-link>
             <router-link to="/register">
-              <el-button plain  icon="icon-adduser" size="small" round>注册</el-button>
+              <el-button plain icon="icon-adduser" size="small" round>注册</el-button>
             </router-link>
           </template>
           <template v-else>
             <el-dropdown trigger="click" @command="handleUserCommand">
               <span class="el-dropdown-link">
                   <el-avatar style="vertical-align: middle;" :src="user.avatar">
-                    <i v-if="!user.avatar" class="icon-user"></i>
+                    <i v-if="!user.avatar" class="icon-user"/>
                   </el-avatar>
               </span>
               <el-dropdown-menu slot="dropdown">
                 <router-link to="/usercenter">
                   <el-dropdown-item icon="icon-pic-left">
-                    <el-badge value="待完善" :hidden="!needFill">
+                    <el-badge value="待完善" :hidden="!user.needFill">
                     个人中心
                     </el-badge>
                   </el-dropdown-item>
@@ -46,7 +50,7 @@
 </template>
 
 <script>
-  import {getUserInfo} from "@/api/user";
+  // import {getUserInfo} from "@/api/user";
 
   export default {
     name: "BaseHeader",
@@ -56,7 +60,7 @@
     },
     data() {
       return {
-        needFill: true
+        iwant: require("@/static/img/iwant.png"),
       }
     },
     computed: {
@@ -64,6 +68,7 @@
         let token = this.$store.getters.token;
         let isLogin = token && token.length > 0;
         return {
+          needFill: null === this.$store.getters.user.mobile,
           isLogin: isLogin,
           avatar: this.$store.state.user.avatar
         }
@@ -91,14 +96,16 @@
         }
       },
       initUserInfo() {
-        let that = this;
-        getUserInfo().then(res => {
-          if (res.success && res.data != null) {
-            that.needFill = false;
-            let data = res.data;
-            that.$store.commit("SET_AVATAR", data.avatar);
-          }
-        })
+        /*
+                let that = this;
+                getUserInfo().then(res => {
+                  if (res.success && res.data != null) {
+                    that.needFill = false;
+                    let data = res.data;
+                    that.$store.commit("SET_AVATAR", data.avatar);
+                  }
+                })
+        */
       }
     },
     created() {
@@ -115,5 +122,6 @@
     left: 0;
     top: 0;
     min-width: 100%;
+    z-index: 1024;
   }
 </style>

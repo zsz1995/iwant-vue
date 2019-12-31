@@ -1,6 +1,9 @@
 <template>
   <div>
     <el-row>
+      <router-link to="/">
+        <el-image :src="iwant" class="logo"/>
+      </router-link>
       <div style="width: 980px;height: auto;margin: 100px auto;">
         <el-col :offset="2" :span="8">
           <el-image :src="src_teamwork" style="height: 400px;width: 400px; "></el-image>
@@ -84,6 +87,7 @@
       };
       return {
         loading: false,
+        iwant: require("@/static/img/iwant.png"),
         src_teamwork: require("@/static/img/register.svg"),
         input: {
           username: "",
