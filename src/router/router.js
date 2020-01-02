@@ -16,18 +16,13 @@ export const constantRouterMap = [
   }, {
     path: '/',
     meta: {title: "首页", noCache: true},
-    redirect: "/latest",
+    redirect: "/meetings",
     component: Index,
     children: [
       {
-        path: "/latest",
-        meta: {title: "最新活动", noCache: true},
-        component: r => require.ensure([], () => r(require('@/views/meeting/Latest')), 'Latest')
-      },
-      {
         path: "/meetings",
-        meta: {title: "所有活动", noCache: true},
-        component: r => require.ensure([], () => r(require('@/views/Login')), 'AllMeeting')
+        meta: {title: "全部活动", noCache: true},
+        component: r => require.ensure([], () => r(require('@/views/meeting/AllMeetings')), 'AllMeetings')
       },
       {
         path: "/usercenter",

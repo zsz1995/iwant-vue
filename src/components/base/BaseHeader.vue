@@ -11,8 +11,7 @@
           <el-image class="logo" :src="iwant">
           </el-image>
         </router-link>
-        <el-menu-item index="/latest" style="margin-left: 30px">最新</el-menu-item>
-        <el-menu-item index="/meetings">全部活动</el-menu-item>
+        <el-menu-item index="/meetings" style="margin-left: 30px">全部活动</el-menu-item>
         <span class="pull-right" style="height: 60px;line-height: 60px;margin: 0 20px;">
           <template v-if="!user.isLogin">
             <router-link to="/login" class="margin-right-5">
