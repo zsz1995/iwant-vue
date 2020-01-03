@@ -5,7 +5,6 @@ import config from "@/settings"
 import {getToken} from "@/utils/auth";
 import store from "@/store"
 
-const whiteList = ["/login", "/", "/register", "/meetings", "/latest"];
 
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
@@ -27,12 +26,9 @@ router.beforeEach((to, from, next) => {
       next()
     }
   } else {
-    if (whiteList.indexOf(to.path) !== -1) {
-      next()
-    } else {
-      next("/login");
-      NProgress.done()
-    }
+    next();
+    NProgress.done()
+    
   }
   
 });

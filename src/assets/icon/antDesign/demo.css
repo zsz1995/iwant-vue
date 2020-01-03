@@ -60,9 +60,9 @@
 
 /* 页面布局 */
 .main {
-  padding: 30px 100px;
+  padding: 0;
   width: 960px;
-  margin: 0 auto;
+  margin-top: 60px
 }
 
 .main .logo {

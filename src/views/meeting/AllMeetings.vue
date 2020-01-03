@@ -1,11 +1,9 @@
 <template>
-  <div>
+  <div class="all-meeting">
     <el-row type="flex" justify="center" style="margin-top: 20px">
       <el-col :span="16">
         <el-timeline>
-          <el-timeline-item v-for="item in meetings" :key="item.name" :timestamp="item.time" placement="top">
-            <card-meeting  :meeting="item" />
-          </el-timeline-item>
+          <card-meeting v-for="item in meetings" :key="item.name" :meeting="item"/>
         </el-timeline>
       </el-col>
     </el-row>
@@ -22,11 +20,30 @@
     },
     data() {
       return {
-        meetings: [
-          {name: "活动1", time: "2019年1月2日"},
-          {name: "活动2", time: "2019年1月1日"}
-        ]
+        page: 1,
+        limit: 5,
+        meetings: []
       }
+    },
+    methods: {
+      getAllMeetings() {
+        let that = this;
+        this.$request({
+          url: "/meeting/all",
+          method: "get",
+          data: JSON.stringify({
+            page: that.page,
+            limit: that.limit
+          })
+        }).then( res => {
+          if (res.success) {
+            that.meetings = res.data;
+          }
+        })
+      }
+    },
+    created() {
+      this.getAllMeetings()
     }
   }
 </script>

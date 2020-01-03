@@ -1,11 +1,17 @@
 <template>
-  <el-card>
-    <div style="padding: 14px;">
-      <span>{{ meetingInfo.name }}</span>
-      <div class="bottom clearfix">
-        <time class="time">{{ currentDate }}</time>
-        <el-button type="text" class="button">操作按钮</el-button>
-      </div>
+  <el-card class="meeting" shadow="hover">
+    <div slot="header" class="header">
+      <span class="title">{{ meetingInfo.title }}</span>
+      <i class="el-icon-timer">截止日期 {{ meetingInfo.endTime | formatDate }}</i>
+      <i class="el-icon-time">发布于 {{ meetingInfo.createTime | formatTime }}</i>
+    </div>
+    <div class="body">
+      <span class="content">
+        {{ meetingInfo.content }}
+      </span>
+      <i class="el-icon-location">地点 {{ meetingInfo.position }}</i>
+      <i class="el-icon-user">讲师 {{ meetingInfo.lecturer }}</i>
+      <el-button @click="showDetail(meetingInfo.meetingId)" type="text" style="float: right;padding: 3px 0;">查看详情 </el-button>
     </div>
   </el-card>
 </template>
@@ -21,8 +27,8 @@
       }
     },
     methods: {
-      init() {
-        console.log(this.meetingId)
+      showDetail(meetingId) {
+        this.$router.push({path: `/meeting/${meetingId}`})
       }
     },
     created() {
@@ -32,7 +38,7 @@
 
 <style scoped>
   .el-card {
-    margin-top: 20px;
-    background-color: beige;
+    margin-bottom: 20px;
+    padding: 14px;
   }
 </style>

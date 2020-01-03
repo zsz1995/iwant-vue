@@ -44,20 +44,11 @@ span .me-pull-right {
     font-size: 14px;
 }
 
-.me-container {
-    padding: 20px;
-    height: 100%;
-}
-
-#app {
-}
-
 .banner3 {
     background-image: url("../../static/img/banner3.jpg");
     background-repeat: no-repeat;
     background-size: cover;
 }
-
 .banner1 {
     background-image: url("../../static/img/banner1.jpg");
     background-repeat: no-repeat;
@@ -68,17 +59,11 @@ span .me-pull-right {
     background-repeat: no-repeat;
     background-size: cover;
 }
-
 .banner4 {
     background-image: url("../../static/img/banner4.png");
     background-repeat: no-repeat;
     background-size: cover;
 }
-
-
-
-
-
 .logo {
     height: 60px;
     float: left;
@@ -86,7 +71,6 @@ span .me-pull-right {
     position: fixed;
     top: 0;
 }
-
 .me-label {
     text-align: right;
     vertical-align: middle;
@@ -98,11 +82,34 @@ span .me-pull-right {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+.main {
+    margin-top: 60px;
+}
 
 .meeting .title {
-    font-size: 28px;
-    font-family: 宋体, serif;
-    line-height: 100px;
+    font: 18px large;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    line-height: 1.5;
+}
+
+.detail {
+    text-align: center;
+}
+.detail .title {
+    font: 18px large;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    line-height: 1.7;
+}
+
+.detail .content {
+    text-align: left;
+    text-indent: 30px;
+    vertical-align: middle;
+    float: left;
+    font: 14px Base;
+    line-height: 2;
+    color: #606266;
+    margin-bottom: 20px;
 }
 
 .meeting .content {
@@ -110,15 +117,41 @@ span .me-pull-right {
     text-indent: 30px;
     vertical-align: middle;
     float: left;
-    font-size: 14px;
+    font: 14px Base;
     color: #606266;
-    line-height: 40px;
-    padding: 0 30px 0 70px;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin-bottom: 20px;
 }
 
-
+.detail i {
+    margin-right: 20px;
+    text-align: left;
+    font: 13px Small;
+    float: right;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+.meeting .header {
+}
+.meeting .header i {
+    text-align: right;
+    font: 12px Extra Small;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    float: right;
+    margin-left: 20px;
+}
+.meeting .body i {
+    text-align: right;
+    float: left;
+    font: 12px Extra Small;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+    margin-right: 20px;
+}
 html, body, #app, .el-container {
     /*设置内部填充为0，几个布局元素之间没有间距*/
     padding: 0px;

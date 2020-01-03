@@ -1,11 +1,10 @@
 <template>
-  <div>
+  <el-header class="iw-header">
       <el-menu
       :router="true"
       :default-active="activeIndex"
       menu-trigger="click"
       mode="horizontal"
-      class="iw-header"
       >
         <router-link to="/">
           <el-image class="logo" :src="iwant">
@@ -42,7 +41,7 @@
           </template>
         </span>
       </el-menu>
-  </div>
+  </el-header>
 </template>
 
 <script>

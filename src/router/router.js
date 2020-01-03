@@ -25,6 +25,11 @@ export const constantRouterMap = [
         component: r => require.ensure([], () => r(require('@/views/meeting/AllMeetings')), 'AllMeetings')
       },
       {
+        path: "/meeting/:id",
+        meta: {title: "活动详情", noCache: true},
+        component: r => require.ensure([], () => r(require('@/views/meeting/MeetingDetail')), 'MeetingDetail')
+      },
+      {
         path: "/usercenter",
         meta: {title: "个人中心", noCache: true},
         redirect: "/filluser",
