@@ -28,16 +28,72 @@
       </el-col>
     </el-row>
 
+    <el-row type="flex" justify="center" style="height: 300px">
+      <el-col :span="16">
+        <el-amap ref="map" vid="amapDemo"
+                 :amap-manager="amapManager"
+                 :center="center" :zoom="zoom" :plugin="plugin"
+                 :events="events" class="amap-demo">
+          <el-amap-marker :position="marker.position" :events="marker.events"
+                          :visible="marker.visible" :draggable="marker.draggable"/>
+        </el-amap>
+      </el-col>
+    </el-row>
+
   </div>
 </template>
 
 <script>
+  import VueAMap from "vue-amap";
+
+  let amapManager = new VueAMap.AMapManager();
   export default {
     name: "MeetingDetail",
     data() {
       return {
-        meeting: {}
-      }
+        meeting: {},
+        marker:
+        {
+          position: [116.999825, 36.662524],
+          events: {
+            click: () => {
+              alert('click marker');
+            },
+            dragend: (e) => {
+              console.log('---event---: dragend')
+              this.markers[0].position = [e.lnglat.lng, e.lnglat.lat];
+            }
+          },
+          visible: true,
+          draggable: false,
+          template: '<span>1</span>',
+        },
+        amapManager, zoom: 19,
+        center: [116.999825, 36.662524],
+        events: {
+          init: (o) => {
+            o.getCity(result => {
+              console.log(result)
+            })
+          },
+          'moveend': () => {
+          },
+          'zoomchange': () => {
+          },
+          'click': (e) => {
+            console.log(e, 'map clicked');
+          }
+        },
+        plugin: ['ToolBar', {
+          pName: 'MapType',
+          defaultType: 0,
+          events: {
+            init(o) {
+              console.log(o);
+            }
+          }
+        }]
+      };
     },
     methods: {
       sign() {
